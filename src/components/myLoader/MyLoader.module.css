@@ -22,7 +22,7 @@
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
 }
 .loader:after {
-  box-shadow: 0 2px 0 #ff3d00 inset;
+  box-shadow: 0 2px 0 #020202 inset;
   animation: rotate 2s linear infinite;
 }
 

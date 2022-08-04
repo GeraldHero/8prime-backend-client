@@ -14,6 +14,7 @@ import {
 import Notifications from '@mui/icons-material/Notifications';
 import MailIcon from '@mui/icons-material/Mail';
 import { grey } from '@mui/material/colors';
+import { Link } from 'react-router-dom';
 
 const customStyle = {
   icon: {
@@ -40,16 +41,18 @@ const CustomeMenuItem = styled(MenuItem)(({ theme }) => ({
 
 const iconDisplay = [
   {
+    name: 'mail',
     icon: <MailIcon sx={customStyle.icon} />,
     badgeContent: 4,
   },
   {
+    name: 'notification',
     icon: <Notifications sx={customStyle.icon} />,
     badgeContent: 2,
   },
 ];
 
-const BadgeIcons = () => {
+const BadgeIcons = ({ logoutHandler, user }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -62,8 +65,8 @@ const BadgeIcons = () => {
   return (
     <Stack direction='row' spacing={{ xs: 2, lg: 3 }} alignItems='center'>
       <DisplayIconBox>
-        {iconDisplay.map((item) => (
-          <IconButton>
+        {iconDisplay.map((item, idx) => (
+          <IconButton key={item.name}>
             <Badge badgeContent={item.badgeContent} color='error'>
               {item.icon}
             </Badge>
@@ -78,32 +81,37 @@ const BadgeIcons = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar alt='Remy Sharp' src='https://picsum.photos/200/300' />
-        <Typography variant='h6' px='20px'>
-          John
+        <Typography variant='h6' px='20px' color='white'>
+          {user}
         </Typography>
       </Button>
 
       <Menu
-        id='demo-positioned-menu'
-        aria-labelledby='demo-positioned-button'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
       >
         <CustomeMenuItem>Notification</CustomeMenuItem>
         <CustomeMenuItem>Message</CustomeMenuItem>
+        <MenuItem>
+          <Link
+            to='/dashboard'
+            style={{ textDecoration: 'none', color: '#000000' }}
+          >
+            Dashboard
+          </Link>
+        </MenuItem>
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={logoutHandler}>
+          <Link to='/' style={{ textDecoration: 'none', color: '#000000' }}>
+            Logout
+          </Link>
+        </MenuItem>
       </Menu>
     </Stack>
   );
