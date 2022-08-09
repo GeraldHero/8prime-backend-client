@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../reduxConfig/action/userAction';
 import { useNavigate } from 'react-router-dom';
-import { Button, Box, Grid, Stack, CircularProgress } from '@mui/material';
+import { Button, Box, Grid, CircularProgress } from '@mui/material';
+import Stack from '@mui/material/Stack';
 import DynamicTextField from '../components/Login/DynamicTextField';
 import MyMessage from '../components/myMessage/MyMessage';
 
@@ -10,8 +11,8 @@ import Logo from '../assets/image/logo-img.jpg';
 
 const MyLogin = () => {
   const [values, setValues] = useState({
-    username: 'Admin',
-    password: '',
+    username: 'geraldAdmin',
+    password: 'admin123',
   });
   // Redux Tool
   const dispatch = useDispatch();
@@ -51,7 +52,6 @@ const MyLogin = () => {
       helperText:
         'Minimum eight characters, least one capital and one lower case letter, one number and one special character',
       type: 'password',
-
       required: true,
     },
   ];
@@ -80,9 +80,7 @@ const MyLogin = () => {
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Stack
-          sx={{ padding: 20, position: 'absolute', width: '30%', right: 0 }}
-        >
+        <Box sx={{ padding: 20, position: 'absolute', width: '30%', right: 0 }}>
           {error?.errors
             ? error?.errors.map((item, index) => (
                 <MyMessage key={index} variant='error'>
@@ -90,7 +88,8 @@ const MyLogin = () => {
                 </MyMessage>
               ))
             : error && <MyMessage variant='error'>{error}</MyMessage>}
-        </Stack>
+        </Box>
+
         <Box
           component='form'
           onSubmit={formHundle}
@@ -102,17 +101,14 @@ const MyLogin = () => {
             alignContent: 'center',
           }}
         >
-          {
-            // Pass all form field data to create dynamic text/password input field
-            inputs.map((input, idx) => (
-              <DynamicTextField
-                key={idx}
-                {...input}
-                value={values[input.name]}
-                onChangeHundler={onChangeHundler}
-              />
-            ))
-          }
+          {inputs.map((input, idx) => (
+            <DynamicTextField
+              key={idx}
+              {...input}
+              value={values[input.name]}
+              onChangeHundler={onChangeHundler}
+            />
+          ))}
           <Button sx={{ width: '200px', mx: 'auto' }} type='submit'>
             {loading ? <CircularProgress size='20px' /> : <span>Submit</span>}
           </Button>

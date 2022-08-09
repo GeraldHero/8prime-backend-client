@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert } from '@mui/material';
 
 const MyMessage = ({ variant, children }) => {
   const [show, setShow] = useState(true);

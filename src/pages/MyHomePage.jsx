@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Box, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import videoFile from '../assets/video/file.mp4';
 
 const style = {

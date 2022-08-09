@@ -122,7 +122,6 @@ const listItems = [
 
 const SideBar = () => {
   const [open, setOpen] = React.useState(false);
-  const [navigateLogout, setnavigateLogout] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -131,20 +130,18 @@ const SideBar = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  const navigate = useNavigate();
+  const { userInfo, loading } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo && !loading) navigate('/login');
+  }, [userInfo, loading, navigate]);
 
   const logoutHandler = () => {
     dispatch(logout(userInfo));
-    setnavigateLogout(true);
   };
-
-  useEffect(() => {
-    if (navigateLogout) navigate('/');
-  }, [navigateLogout]);
 
   return (
     <Drawer variant='permanent' open={open}>

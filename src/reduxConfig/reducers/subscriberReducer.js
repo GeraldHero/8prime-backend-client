@@ -4,7 +4,7 @@ import {
   SUBSCRIBERS_LIST_FAIL,
 } from '../../reduxConfig/constants/subscriberConstant';
 
-export const subscriberListReducer = (state = { subscribers: [] }, action) => {
+export const SubscribersList = (state = { subscribers: [] }, action) => {
   switch (action.type) {
     case SUBSCRIBERS_LIST_REQUEST:
       return { loading: true, subscribers: [] };

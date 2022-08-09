@@ -33,7 +33,6 @@ export const login = (username, password) => async (dispatch) => {
 
     setAuthToken(data.token);
     localStorage.setItem('userInfo', JSON.stringify(data));
-    return;
   } catch (error) {
     return dispatch({
       type: USER_LOGIN_FAIL,

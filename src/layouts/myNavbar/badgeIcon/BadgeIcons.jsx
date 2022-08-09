@@ -4,7 +4,6 @@ import {
   Stack,
   Typography,
   IconButton,
-  Avatar,
   Box,
   styled,
   MenuItem,
@@ -12,7 +11,6 @@ import {
   Button,
 } from '@mui/material/';
 import Notifications from '@mui/icons-material/Notifications';
-import MailIcon from '@mui/icons-material/Mail';
 import { grey } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
 
@@ -40,11 +38,6 @@ const CustomeMenuItem = styled(MenuItem)(({ theme }) => ({
 }));
 
 const iconDisplay = [
-  {
-    name: 'mail',
-    icon: <MailIcon sx={customStyle.icon} />,
-    badgeContent: 4,
-  },
   {
     name: 'notification',
     icon: <Notifications sx={customStyle.icon} />,

@@ -9,7 +9,7 @@ const MyLogin = lazy(() => import('./pages/MyLogin'));
 // Need to add route on navbar if adding a page/controller
 const MyDashboard = lazy(() => import('./pages/MyDashboard'));
 const Subscribers = lazy(() =>
-  import('./controllers/dashboardPages/Subscribers')
+  import('./controllers/dashboardPages/subscribers/Subscribers')
 );
 const Projects = lazy(() => import('./controllers/dashboardPages/Projects'));
 const Gallerys = lazy(() => import('./controllers/dashboardPages/Gallerys'));
@@ -24,6 +24,7 @@ function App() {
     const item = JSON.parse(localStorage.getItem('userInfo'));
     setAuthToken(item.token);
   }
+
   // Best tutorial for React-router-dom
   // https://www.youtube.com/watch?v=Ul3y1LXxzdU
   return (

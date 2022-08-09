@@ -9,7 +9,7 @@ function NotFound() {
       navigate('/');
       // navigate(-1); - Back to previous page
     }, 3000);
-  }, []);
+  }, [navigate]);
 
   return <div>NotFound</div>;
 }

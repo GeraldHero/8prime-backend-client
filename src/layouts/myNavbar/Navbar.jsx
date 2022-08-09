@@ -64,7 +64,7 @@ function Navbar() {
 
   // userinfo from redux state
   const { userInfo } = userLogin;
-  console.log(userInfo);
+
   // Check path location to use in navigation.
   const location = useLocation();
   const arr = navLink.filter(
@@ -92,7 +92,7 @@ function Navbar() {
     } else {
       setIsLogin(false);
     }
-  }, [userInfo, location]);
+  }, [authorizePath]);
 
   const logoutHandler = () => {
     setIsLogin(false);
