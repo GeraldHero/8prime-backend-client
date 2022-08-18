@@ -12,23 +12,28 @@ import MailIcon from '@mui/icons-material/Mail';
 import { getSubscribersList } from '../../../reduxConfig/action/subscriberAction';
 
 // local file
-import Dialog from './Dialog/Dialog';
-
+import Dialog from './dialog/Dialog';
+import Snackbar from './snackbar/Snackbar';
+import Modal from './modal/Modal';
 const DataTable = () => {
   const [query, setQuery] = useState({
     page: 0,
     limit: 10,
     openDialog: false,
+    deleteItems: '',
+    snackbarOpen: false,
+    modalOpen: false,
+    message: '',
   });
 
   const dispatch = useDispatch();
   const subscribersReduxData = useSelector((state) => state.subscribers);
-  const { page, limit } = query;
+  const { page, limit, openDialog } = query;
 
   // If page or limit has change value it will call the dispatch from redux.
   useEffect(() => {
     dispatch(getSubscribersList(page, limit));
-  }, [dispatch, page, limit]);
+  }, [dispatch, page, limit, openDialog]);
 
   // Destructuring the redux subscribers data.
   const { subscriberList, totalPage } = subscribersReduxData.subscribers;
@@ -51,11 +56,13 @@ const DataTable = () => {
       type: 'number',
       width: 200,
     },
-
     {
       field: 'messages',
       headerName: 'Message',
       type: 'number',
+      headerAlign: 'right',
+      align: 'right',
+      width: 200,
       hide: true,
     },
     {
@@ -66,11 +73,21 @@ const DataTable = () => {
       align: 'right',
       renderCell: (params) => {
         const onClickDelete = async () => {
-          return queryHandler('openDialog', true);
+          return setQuery({
+            ...query,
+            openDialog: true,
+            deleteItems: params.row,
+          });
           //alert(JSON.stringify(params.row, null, 4))
         };
         const onClickMessage = async () => {
-          return alert(JSON.stringify(params.row.messages, null, 4));
+          return setQuery({
+            ...query,
+            modalOpen: true,
+            message: params.row.messages,
+          });
+
+          // alert(JSON.stringify(params.row.messages, null, 4));
           //return (window.location.href = '/update');
         };
 
@@ -119,7 +136,7 @@ const DataTable = () => {
   };
 
   return (
-    <div style={{ height: 650, width: 1000 }}>
+    <div style={{ height: 650, width: 1500 }}>
       <DataGrid
         onPageChange={(pageNumber) => queryHandler('page', pageNumber)}
         {...dataGridSettings}
@@ -129,7 +146,9 @@ const DataTable = () => {
         }}
         loading={subscribersReduxData.loading}
       />
-      <Dialog open={query.openDialog} queryHandler={queryHandler} />
+      <Modal query={query} setQuery={setQuery} />
+      <Dialog query={query} setQuery={setQuery} />
+      <Snackbar open={query.snackbarOpen} queryHandler={queryHandler} />
     </div>
   );
 };
