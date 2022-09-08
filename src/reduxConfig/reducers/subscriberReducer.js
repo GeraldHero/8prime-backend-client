@@ -5,7 +5,7 @@ import {
   SUBSCRIBERS_REMOVE_LIST,
   SUBSCRIBERS_DELETE_SUCCESS,
   SUBSCRIBERS_DELETE_FAIL,
-} from '../../reduxConfig/constants/subscriberConstant';
+} from "../constants/subscriberConstant";
 
 export const SubscribersList = (state = { subscribers: [] }, action) => {
   switch (action.type) {

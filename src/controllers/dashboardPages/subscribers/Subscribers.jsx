@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
-import SubscriberTable from './SubscriberTable';
-import { useDispatch } from 'react-redux';
-import { removeSubscribersList } from '../../../reduxConfig/action/subscriberAction';
+import React, { useState, useEffect } from "react";
+import { Paper } from "@mui/material";
+import SubscriberTable from "./SubscriberTable";
+import { useDispatch } from "react-redux";
+import { removeSubscribersList } from "../../../reduxConfig/action/subscriberAction";
 
 const style = {
   mainBox: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '80vw',
-    margin: '20px auto',
+    display: "flex",
+    justifyContent: "center",
+    width: "80vw",
+    p: 3,
+    m: { xs: 2, md: "2em 5em" },
   },
 };
 
@@ -27,9 +28,9 @@ export const Subscribers = () => {
 
   if (shouldRender) return null;
   return (
-    <Box sx={style.mainBox}>
+    <Paper sx={style.mainBox}>
       <SubscriberTable />
-    </Box>
+    </Paper>
   );
 };
 

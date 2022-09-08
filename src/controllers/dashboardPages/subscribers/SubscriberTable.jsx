@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useDispatch, useSelector } from 'react-redux';
-import Badge from '@mui/material/Badge';
-
+import React, { useEffect, useState } from "react";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useDispatch, useSelector } from "react-redux";
+import Badge from "@mui/material/Badge";
+import { Tooltip } from "@mui/material";
 // Icons
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import MailIcon from '@mui/icons-material/Mail';
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import MailIcon from "@mui/icons-material/Mail";
 
 // Redux Subscribers action.
-import { getSubscribersList } from '../../../reduxConfig/action/subscriberAction';
+import { getSubscribersList } from "../../../reduxConfig/action/subscriberAction";
 
 // local file
-import Dialog from './dialog/Dialog';
-import Snackbar from './snackbar/Snackbar';
-import Modal from './modal/Modal';
+import Dialog from "./dialog/Dialog";
+import Snackbar from "./snackbar/Snackbar";
+import Modal from "./modal/Modal";
 const DataTable = () => {
   const [query, setQuery] = useState({
     page: 0,
     limit: 10,
     openDialog: false,
-    deleteItems: '',
+    deleteItems: "",
     snackbarOpen: false,
     modalOpen: false,
-    message: '',
+    message: "",
   });
 
   const dispatch = useDispatch();
@@ -47,30 +47,30 @@ const DataTable = () => {
 
   // Header or the Columns settings in the DataGrid properties.
   const columns = [
-    { field: 'id', headerName: 'ID', width: 200, hide: true },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'email', headerName: 'Email', width: 200 },
+    { field: "id", headerName: "ID", width: 200, hide: true },
+    { field: "name", headerName: "Name", width: 200 },
+    { field: "email", headerName: "Email", width: 200 },
     {
-      field: 'phone',
-      headerName: 'Phone Number',
-      type: 'number',
+      field: "phone",
+      headerName: "Phone Number",
+      type: "number",
       width: 200,
     },
     {
-      field: 'messages',
-      headerName: 'Message',
-      type: 'number',
-      headerAlign: 'right',
-      align: 'right',
+      field: "messages",
+      headerName: "Message",
+      type: "number",
+      headerAlign: "right",
+      align: "right",
       width: 200,
       hide: true,
     },
     {
-      field: 'action',
-      headerName: 'Action',
+      field: "action",
+      headerName: "Action",
       width: 250,
-      headerAlign: 'right',
-      align: 'right',
+      headerAlign: "right",
+      align: "right",
       renderCell: (params) => {
         const onClickDelete = async () => {
           return setQuery({
@@ -90,17 +90,20 @@ const DataTable = () => {
           // alert(JSON.stringify(params.row.messages, null, 4));
           //return (window.location.href = '/update');
         };
-
         return (
           <div>
-            <IconButton onClick={onClickDelete}>
-              <DeleteIcon color='error' />
-            </IconButton>
-            <IconButton color='primary' onClick={onClickMessage}>
-              <Badge badgeContent={params.row.messages.length} color='error'>
-                <MailIcon />
-              </Badge>
-            </IconButton>
+            <Tooltip title="Delete" placement="left">
+              <IconButton onClick={onClickDelete}>
+                <DeleteIcon color="error" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="View Message" placement="right">
+              <IconButton color="primary" onClick={onClickMessage}>
+                <Badge badgeContent={params.row.messages.length} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
           </div>
         );
       },
@@ -126,7 +129,7 @@ const DataTable = () => {
   const dataGridSettings = {
     page,
     disableSelectionOnClick: true,
-    paginationMode: 'server',
+    paginationMode: "server",
     rows,
     rowCount: totalPage || 0,
     columns,
@@ -138,9 +141,9 @@ const DataTable = () => {
   return (
     <div style={{ height: 650, width: 1500 }}>
       <DataGrid
-        onPageChange={(pageNumber) => queryHandler('page', pageNumber)}
+        onPageChange={(pageNumber) => queryHandler("page", pageNumber)}
         {...dataGridSettings}
-        onPageSizeChange={(a) => queryHandler('limit', a)}
+        onPageSizeChange={(a) => queryHandler("limit", a)}
         components={{
           Toolbar: GridToolbar,
         }}
